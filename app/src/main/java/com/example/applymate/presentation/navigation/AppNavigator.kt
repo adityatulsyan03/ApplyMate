@@ -5,12 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.applymate.presentation.screens.CoverLetterGeneratorScreen
-import com.example.applymate.presentation.screens.DashBoardScreen
-import com.example.applymate.presentation.screens.JobSearchScreen
-import com.example.applymate.presentation.screens.LinkedInScreen
-import com.example.applymate.presentation.screens.ReferralMessageGeneratorScreen
-import com.example.applymate.presentation.screens.ResumeOptimizationScreen
+import com.example.applymate.presentation.screens.ChatScreen
+import com.example.applymate.presentation.screens.HomeScreen
+import com.example.applymate.presentation.screens.JobScreen
+import com.example.applymate.presentation.screens.MoreScreen
 import com.example.applymate.presentation.screens.ResumeScreen
 
 @Composable
@@ -20,19 +18,19 @@ fun AppNavigator(
 
     NavHost(
         navController = navController,
-        startDestination = Screens.DashBoardScreen.route
+        startDestination = Screens.HomeScreen.route
     ) {
 
         composable(
-            route = Screens.DashBoardScreen.route
+            route = Screens.HomeScreen.route
         ){
-            DashBoardScreen(navController = navController)
+            HomeScreen(navController = navController)
         }
 
         composable(
-            route = Screens.LinkedInScreen.route
+            route = Screens.JobScreen.route
         ){
-            LinkedInScreen(navController = navController)
+            JobScreen(navController = navController)
         }
 
         composable(
@@ -42,27 +40,15 @@ fun AppNavigator(
         }
 
         composable(
-            route = Screens.ReferralMessageGeneratorScreen.route
+            route = Screens.ChatScreen.route
         ){
-            ReferralMessageGeneratorScreen(navController = navController)
+            ChatScreen(navController = navController)
         }
 
         composable(
-            route = Screens.ResumeOptimizationScreen.route
+            route = Screens.MoreScreen.route
         ){
-            ResumeOptimizationScreen(navController = navController)
-        }
-
-        composable(
-            route = Screens.CoverLetterGeneratorScreen.route
-        ){
-            CoverLetterGeneratorScreen(navController = navController)
-        }
-
-        composable(
-            route = Screens.JobSearchScreen.route
-        ){
-            JobSearchScreen(navController = navController)
+            MoreScreen(navController = navController)
         }
     }
 

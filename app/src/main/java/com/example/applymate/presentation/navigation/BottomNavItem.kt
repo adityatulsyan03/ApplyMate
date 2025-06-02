@@ -1,67 +1,83 @@
 package com.example.applymate.presentation.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 import com.example.applymate.R
 
 sealed class BottomNavItem(
     val route: String,
     val onOptionClick: (NavController) -> Unit,
-    val label:  String,
-    val selectedIcon: NavIcon,
-    val unselectedIcon: NavIcon
-){
+    val label: String,
+    val selectedIcon: Int,
+    val unselectedIcon: Int
+) {
 
-    data object DashBoard: BottomNavItem(
-        route = Screens.DashBoardScreen.route,
+    data object Home : BottomNavItem(
+        route = Screens.HomeScreen.route,
         onOptionClick = { navController ->
-            navController.navigate(Screens.DashBoardScreen.route){
+            navController.navigate(Screens.HomeScreen.route) {
                 popUpTo(navController.graph.startDestinationId)
                 launchSingleTop = true
             }
         },
         label = "Home",
-        selectedIcon = NavIcon.Vector(Icons.Filled.Home),
-        unselectedIcon = NavIcon.Vector(Icons.Outlined.Home)
+        selectedIcon = R.drawable.home_selected,
+        unselectedIcon = R.drawable.home_unselected
     )
 
-    data object LinkedIn: BottomNavItem(
-        route = Screens.LinkedInScreen.route,
+    data object Jobs : BottomNavItem(
+        route = Screens.JobScreen.route,
         onOptionClick = { navController ->
-            navController.navigate(Screens.LinkedInScreen.route){
+            navController.navigate(Screens.JobScreen.route) {
                 popUpTo(navController.graph.startDestinationId)
                 launchSingleTop = true
             }
         },
-        label = "LinkedIn",
-        //Here
-        selectedIcon = NavIcon.Drawable(R.drawable.linkedin_filled),
-        unselectedIcon = NavIcon.Drawable(R.drawable.linkedin_outline)
+        label = "Jobs",
+        selectedIcon = R.drawable.jobs_selected,
+        unselectedIcon = R.drawable.jobs_unselected
     )
 
-    data object Resume: BottomNavItem(
+    data object Resume : BottomNavItem(
         route = Screens.ResumeScreen.route,
         onOptionClick = { navController ->
-            navController.navigate(Screens.ResumeScreen.route){
+            navController.navigate(Screens.ResumeScreen.route) {
                 popUpTo(navController.graph.startDestinationId)
                 launchSingleTop = true
             }
         },
         label = "Resume",
-        selectedIcon = NavIcon.Drawable(R.drawable.resume_filled),
-        unselectedIcon = NavIcon.Drawable(R.drawable.resume_outline)
+        selectedIcon = R.drawable.resume_selected,
+        unselectedIcon = R.drawable.resume_unselected
+    )
+
+    data object Chats : BottomNavItem(
+        route = Screens.ChatScreen.route,
+        onOptionClick = { navController ->
+            navController.navigate(Screens.ChatScreen.route) {
+                popUpTo(navController.graph.startDestinationId)
+                launchSingleTop = true
+            }
+        },
+        label = "Chats",
+        selectedIcon = R.drawable.chat_selected,
+        unselectedIcon = R.drawable.chat_unselected
+    )
+
+    data object More : BottomNavItem(
+        route = Screens.MoreScreen.route,
+        onOptionClick = { navController ->
+            navController.navigate(Screens.MoreScreen.route) {
+                popUpTo(navController.graph.startDestinationId)
+                launchSingleTop = true
+            }
+        },
+        label = "More",
+        selectedIcon = R.drawable.more_selected,
+        unselectedIcon = R.drawable.more_unselected
     )
 
     companion object {
-        val bottomNavOptions = listOf(DashBoard, LinkedIn, Resume)
+        val bottomNavOptions = listOf(Home, Jobs, Resume, Chats, More)
     }
 
-}
-
-sealed class NavIcon {
-    data class Vector(val icon: ImageVector) : NavIcon()
-    data class Drawable(val resId: Int) : NavIcon()
 }

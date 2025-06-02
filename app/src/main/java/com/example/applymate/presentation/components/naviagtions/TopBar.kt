@@ -1,9 +1,11 @@
 package com.example.applymate.presentation.components.naviagtions
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -28,9 +30,10 @@ fun TopBar(
         title = {
             Text(
                 text = title,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = if (onTitleClick != null) {
-                    Modifier.clickable { onTitleClick() }
+                    Modifier
+                        .clickable { onTitleClick() }
                 } else {
                     Modifier
                 }
@@ -59,7 +62,7 @@ fun TopBar(
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF1E1E1E),
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
             titleContentColor = Color.White
         )
     )

@@ -1,4 +1,4 @@
-package com.example.applymate.presentation.components.naviagtions
+package com.example.applymate.presentation.navigation
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -7,11 +7,10 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.applymate.presentation.navigation.BottomNavItem
-import com.example.applymate.presentation.navigation.NavIcon
 
 @Composable
 fun BottomNavigatorBar(navController: NavController) {
@@ -28,20 +27,11 @@ fun BottomNavigatorBar(navController: NavController) {
                     } else {
                         option.unselectedIcon
                     }
-                    when (currentIcon){
-                        is NavIcon.Drawable -> {
-                            Icon(
-                                painter = painterResource(id = currentIcon.resId),
-                                contentDescription = option.label
-                            )
-                        }
-                        is NavIcon.Vector -> {
-                            Icon(
-                                imageVector = currentIcon.icon,
-                                contentDescription = option.label
-                            )
-                        }
-                    }
+                    Icon(
+                        painter = painterResource(id = currentIcon),
+                        contentDescription = "",
+                        tint = Color.Unspecified
+                    )
                 },
                 label = { Text(option.label) },
                 colors = NavigationBarItemDefaults.colors(
