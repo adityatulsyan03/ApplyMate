@@ -19,7 +19,7 @@ fun AppScaffold(
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
-    snackbarHost: @Composable () -> Unit = {},
+    snackBarHost: @Composable () -> Unit = {},
     contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     body: @Composable BoxScope.() -> Unit
 ) {
@@ -29,7 +29,7 @@ fun AppScaffold(
             topBar = topBar,
             bottomBar = bottomBar,
             floatingActionButton = floatingActionButton,
-            snackbarHost = snackbarHost,
+            snackbarHost = snackBarHost,
             contentWindowInsets = contentWindowInsets
         ) {
             Box(

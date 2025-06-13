@@ -4,27 +4,39 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.applymate.presentation.components.core.Header
 import com.example.applymate.presentation.components.naviagtions.AppScaffold
 import com.example.applymate.presentation.components.naviagtions.TopBar
-import com.example.applymate.presentation.components.resume.GenerateOptimizedResume
-import com.example.applymate.presentation.components.resume.ResumeReview
-import com.example.applymate.presentation.components.resume.ResumeSuggestion
-import com.example.applymate.presentation.components.resume.UploadResumeDocument
+import com.example.applymate.presentation.components.referral.GenerateReferralMessage
+import com.example.applymate.presentation.components.referral.ReferralKeywords
 import com.example.applymate.presentation.navigation.BottomNavigatorBar
 
 @Composable
-fun ResumeScreen(navController: NavController) {
+fun ReferralScreen(navController: NavHostController) {
 
     AppScaffold(
         bottomBar = {
@@ -50,17 +62,16 @@ fun ResumeScreen(navController: NavController) {
                 ) {
                     item {
                         Header(
-                            first = "Resume Optimization",
-                            second = "Get AI suggestions to improve your resume"
+                            first = "Referral Message Generator",
+                            second = "Generate a referral message to apply"
                         )
                     }
-                    item { UploadResumeDocument() }
-                    item { ResumeReview() }
-                    item { ResumeSuggestion() }
+                    item { ReferralKeywords() }
                 }
-                GenerateOptimizedResume(modifier = Modifier.align(Alignment.BottomCenter))
+                GenerateReferralMessage(modifier = Modifier.align(Alignment.BottomCenter))
             }
         }
 
     }
+
 }

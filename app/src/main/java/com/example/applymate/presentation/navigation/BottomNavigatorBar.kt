@@ -29,17 +29,15 @@ fun BottomNavigatorBar(navController: NavController) {
                     }
                     Icon(
                         painter = painterResource(id = currentIcon),
-                        contentDescription = "",
+                        contentDescription = option.label,
                         tint = Color.Unspecified
                     )
                 },
                 label = { Text(option.label) },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     selectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    indicatorColor = MaterialTheme.colorScheme.primaryContainer
+                    unselectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    indicatorColor = Color.Transparent
                 )
             )
         }

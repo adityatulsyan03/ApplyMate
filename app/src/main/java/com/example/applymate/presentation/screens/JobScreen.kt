@@ -13,25 +13,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.applymate.presentation.components.core.Header
+import com.example.applymate.presentation.components.jobSearch.FindJobs
+import com.example.applymate.presentation.components.jobSearch.JobSearchFilter
 import com.example.applymate.presentation.components.naviagtions.AppScaffold
 import com.example.applymate.presentation.components.naviagtions.TopBar
-import com.example.applymate.presentation.components.resume.GenerateOptimizedResume
-import com.example.applymate.presentation.components.resume.ResumeReview
-import com.example.applymate.presentation.components.resume.ResumeSuggestion
-import com.example.applymate.presentation.components.resume.UploadResumeDocument
 import com.example.applymate.presentation.navigation.BottomNavigatorBar
 
 @Composable
-fun ResumeScreen(navController: NavController) {
+fun JobScreen(navController: NavHostController) {
 
     AppScaffold(
         bottomBar = {
             BottomNavigatorBar(navController)
         }
     ) {
-
         Surface(
             modifier = Modifier
                 .fillMaxSize()
@@ -50,17 +47,15 @@ fun ResumeScreen(navController: NavController) {
                 ) {
                     item {
                         Header(
-                            first = "Resume Optimization",
-                            second = "Get AI suggestions to improve your resume"
+                            first = "Smart Job Finder",
+                            second = "Find relevant jobs on LinkedIn"
                         )
                     }
-                    item { UploadResumeDocument() }
-                    item { ResumeReview() }
-                    item { ResumeSuggestion() }
+                    item { JobSearchFilter() }
                 }
-                GenerateOptimizedResume(modifier = Modifier.align(Alignment.BottomCenter))
+                FindJobs(modifier = Modifier.align(Alignment.BottomCenter))
             }
         }
-
     }
+
 }

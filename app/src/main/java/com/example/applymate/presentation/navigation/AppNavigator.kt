@@ -8,7 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.applymate.presentation.screens.ChatScreen
 import com.example.applymate.presentation.screens.HomeScreen
 import com.example.applymate.presentation.screens.JobScreen
-import com.example.applymate.presentation.screens.MoreScreen
+import com.example.applymate.presentation.screens.ReferralScreen
 import com.example.applymate.presentation.screens.ResumeScreen
 
 @Composable
@@ -46,9 +46,9 @@ fun AppNavigator(
         }
 
         composable(
-            route = Screens.MoreScreen.route
+            route = Screens.ReferralScreen.route
         ){
-            MoreScreen(navController = navController)
+            ReferralScreen(navController = navController)
         }
     }
 
