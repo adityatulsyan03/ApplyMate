@@ -12,6 +12,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.applymate.presentation.components.core.Header
@@ -22,6 +23,7 @@ import com.example.applymate.presentation.components.resume.ResumeReview
 import com.example.applymate.presentation.components.resume.ResumeSuggestion
 import com.example.applymate.presentation.components.resume.UploadResumeDocument
 import com.example.applymate.presentation.navigation.BottomNavigatorBar
+import com.example.applymate.ui.theme.ApplyMateTheme
 
 @Composable
 fun ResumeScreen(navController: NavController) {
@@ -54,7 +56,9 @@ fun ResumeScreen(navController: NavController) {
                             second = "Get AI suggestions to improve your resume"
                         )
                     }
-                    item { UploadResumeDocument() }
+                    item {
+                        UploadResumeDocument()
+                    }
                     item { ResumeReview() }
                     item { ResumeSuggestion() }
                 }

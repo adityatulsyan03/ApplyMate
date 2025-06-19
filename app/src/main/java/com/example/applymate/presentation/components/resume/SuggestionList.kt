@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.applymate.R
-import com.example.applymate.constants.IconInfo
+import com.example.applymate.common.IconInfo
 import com.example.applymate.data.model.Suggestions
 
 @Composable

@@ -1,4 +1,4 @@
-package com.example.applymate.constants
+package com.example.applymate.common
 
 import androidx.compose.ui.graphics.Color
 import com.example.applymate.R

@@ -1,5 +1,6 @@
 package com.example.applymate.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,10 +10,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.applymate.presentation.components.chat.DocumentUpload
+import androidx.navigation.compose.rememberNavController
+import com.example.applymate.R
 import com.example.applymate.presentation.components.chat.Questions
+import com.example.applymate.presentation.components.core.DocumentUploader
 import com.example.applymate.presentation.components.core.Header
 import com.example.applymate.presentation.components.naviagtions.AppScaffold
 import com.example.applymate.presentation.components.naviagtions.TopBar
@@ -43,10 +47,19 @@ fun ChatScreen(navController: NavHostController) {
                 item {
                     Header(
                         first = "Document Understanding",
-                        second = "Upload a document and chat with AI about it"
+                        second = "Upload a document and chat with AI"
                     )
                 }
-                item { DocumentUpload() }
+                item {
+                    DocumentUploader(
+                        image = R.drawable.upload_icon,
+                        imageDesc = "Document"
+                    ) { fileUri ->
+
+                        Log.d("Document Name", "Resume File Url: $fileUri")
+
+                    }
+                }
                 item { Questions() }
             }
         }

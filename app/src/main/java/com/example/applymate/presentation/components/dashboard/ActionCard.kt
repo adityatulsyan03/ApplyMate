@@ -21,11 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.applymate.R
-import com.example.applymate.constants.iconInfoMapByIcon
+import com.example.applymate.common.iconInfoMapByIcon
 import com.example.applymate.data.model.Action
 import com.example.applymate.presentation.navigation.Screens
 import com.example.applymate.utils.safeNavigateOnce
-import com.example.applymate.utils.safePopBackStack
 
 @Composable
 fun ActionCard(activity: Action, modifier: Modifier = Modifier, navController: NavHostController) {

@@ -1,9 +1,8 @@
 package com.example.applymate.data.model
 
 import com.example.applymate.R
-import com.example.applymate.constants.iconInfoByDesc
+import com.example.applymate.common.iconInfoByDesc
 import java.util.Date
-
 
 data class RecentActivity(
     val action: String,

@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.applymate.R
-import com.example.applymate.constants.IconInfo
+import com.example.applymate.common.IconInfo
 import com.example.applymate.data.model.RecentActivity
 import com.example.applymate.presentation.navigation.Screens
 import com.example.applymate.utils.safeNavigateOnce
