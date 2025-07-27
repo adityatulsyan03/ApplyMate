@@ -1,5 +1,6 @@
 package com.example.applymate.data.repository
 
+import android.util.Log
 import com.example.applymate.common.UiState
 import com.example.applymate.data.model.CustomResponse
 import com.example.applymate.data.model.RecentActivity
@@ -19,14 +20,15 @@ class ActivityRepository @Inject constructor(
             val response = actionApi.getTopTwoActivity();
             if(response.status == "OK"){
                 emit(UiState.Success(response,"Top Two Activity Fetched"))
+                Log.d("Debug Logs","UiState Success")
             }else{
                 emit(UiState.Failed(response.message ?: "Failed to Fetched"))
+                Log.d("Debug Logs","UiState Failed")
             }
 
         } catch (e: Exception) {
-
             emit(UiState.Failed(e.message ?: "An unexpected Error Occurred"))
-
+            Log.d("Debug Logs","UiState Error $e")
         }
     }
 

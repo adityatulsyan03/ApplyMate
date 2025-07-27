@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,16 +19,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.applymate.data.enums.TimeUnit
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimeAgoDropdown(
     onTimeValueSelected: (String) -> Unit,
-    timeUnitOptions: List<String>,
-    onTimeUnitSelected: (String) -> Unit
+    timeUnitOptions: List<TimeUnit>,
+    onTimeUnitSelected: (TimeUnit) -> Unit
 ) {
     var expandValue by remember { mutableStateOf(false) }
-    var timeUnit by remember { mutableStateOf("Hours") }
+    var timeUnit by remember { mutableStateOf(TimeUnit.Hours) }
     var timeValue by remember { mutableStateOf("1") }
 
     Row(
@@ -55,7 +55,7 @@ fun TimeAgoDropdown(
             modifier = Modifier.weight(1f)
         ) {
             OutlinedTextField(
-                value = timeUnit,
+                value = timeUnit.name,
                 onValueChange = {},
                 readOnly = true,
                 trailingIcon = {
@@ -76,7 +76,7 @@ fun TimeAgoDropdown(
             ) {
                 timeUnitOptions.forEach { selectionOption ->
                     DropdownMenuItem(
-                        text = { Text(selectionOption) },
+                        text = { Text(selectionOption.name) },
                         onClick = {
                             timeUnit = selectionOption
                             expandValue = false

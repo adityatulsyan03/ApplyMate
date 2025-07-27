@@ -1,5 +1,6 @@
 package com.example.applymate.presentation.components.dashboard
 
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.applymate.R
 import com.example.applymate.common.IconInfo
+import com.example.applymate.common.iconInfoByDesc
 import com.example.applymate.data.model.RecentActivity
 import com.example.applymate.presentation.navigation.Screens
 import com.example.applymate.utils.safeNavigateOnce
@@ -40,12 +42,13 @@ fun ActivityCard(
     colorMap: Map<Int, IconInfo>,
     navController: NavHostController
 ) {
-    val iconRes = activity.icon
+    val iconRes = iconInfoByDesc[activity.activityType]?.iconResId ?: R.drawable.ic_launcher_foreground
     val iconDesc = colorMap[iconRes]?.description
     val baseColor = colorMap[iconRes]?.color ?: Color.Gray
     val backgroundColor = baseColor.copy(alpha = 0.2f)
 
-    val nav = when(activity.icon){
+    Log.d("Debug Logs",iconRes.toString())
+    val nav = when(iconRes){
         R.drawable.referral_action -> Screens.ReferralScreen.route
         R.drawable.resume_action -> Screens.ResumeScreen.route
         R.drawable.chat_action -> Screens.ChatScreen.route
@@ -79,13 +82,13 @@ fun ActivityCard(
         Spacer(modifier = Modifier.width(8.dp))
         Column {
             Text(
-                text = activity.action,
+                text = activity.activityName,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = activity.topic,
+                    text = activity.activityDescription,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
@@ -100,7 +103,7 @@ fun ActivityCard(
                 }
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = getTimeAgo(activity.date),
+                    text = getTimeAgo(activity.activityDate),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
                     color = MaterialTheme.colorScheme.onPrimaryContainer

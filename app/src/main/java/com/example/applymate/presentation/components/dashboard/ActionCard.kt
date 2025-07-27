@@ -24,6 +24,7 @@ import com.example.applymate.R
 import com.example.applymate.common.iconInfoMapByIcon
 import com.example.applymate.data.model.Action
 import com.example.applymate.presentation.navigation.Screens
+import com.example.applymate.utils.navigateBottomBar
 import com.example.applymate.utils.safeNavigateOnce
 
 @Composable
@@ -42,10 +43,10 @@ fun ActionCard(activity: Action, modifier: Modifier = Modifier, navController: N
         modifier = modifier
             .height(150.dp)
             .background(backgroundColor, shape = RoundedCornerShape(12.dp))
-            .padding(16.dp)
             .clickable {
-                navController.safeNavigateOnce(nav)
-            },
+                navController.navigateBottomBar(nav)
+            }
+            .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(

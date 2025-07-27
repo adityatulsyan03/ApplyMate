@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 interface ActivityApi {
 
-    @GET("/recent_activity")
+    @GET("/recent_activity/top2")
     suspend fun getTopTwoActivity(
 
     ): CustomResponse<List<RecentActivity>>

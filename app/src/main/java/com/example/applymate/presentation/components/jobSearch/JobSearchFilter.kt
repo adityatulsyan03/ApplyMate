@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -27,38 +25,41 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.applymate.data.enums.ExperienceLevel
+import com.example.applymate.data.enums.TimeUnit
+import com.example.applymate.data.enums.WorkType
+import com.example.applymate.data.model.JobSearch
+import com.example.applymate.presentation.viewModel.JobSearchViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun JobSearchFilter() {
+fun JobSearchFilter(viewModel: JobSearchViewModel) {
 
-    var searchText by remember { mutableStateOf("") }
-    var selectedTimeValue by remember { mutableStateOf("1") }
-    val timeUnitOptions = listOf("Hours","Days","Weeks")
-    var selectedTimeUnit by remember { mutableStateOf("Hours") }
-    val workTypes = listOf("On-Site","Remote","Hybrid")
-    val selectedWorkTypes = remember { mutableStateListOf<String>() }
-    val experienceLevels = listOf("Internship","Entry Level","Associate","Mid-Senior Level","Director","Executive")
-    val selectedExperienceLevels = remember { mutableStateListOf<String>() }
-    var isEasyApplyEnabled by remember { mutableStateOf(false) }
-    var isVerificationEnabled by remember { mutableStateOf(false) }
-    var isInYourNetworkEnabled by remember { mutableStateOf(false) }
-    var isNoOfApplicantsEnabled by remember { mutableStateOf(false) }
+    val searchText = viewModel.searchText
+    val selectedTimeValue = viewModel.selectedTimeValue
+    val selectedTimeUnit = viewModel.selectedTimeUnit
+    val selectedWorkTypes = viewModel.selectedWorkTypes
+    val selectedExperienceLevels = viewModel.selectedExperienceLevels
+    val isEasyApplyEnabled = viewModel.isEasyApplyEnabled
+    val isVerificationEnabled = viewModel.isVerificationEnabled
+    val isInYourNetworkEnabled = viewModel.isInYourNetworkEnabled
+    val isNoOfApplicantsEnabled = viewModel.isNoOfApplicantsEnabled
+    val timeUnitOptions = enumValues<TimeUnit>().toList()
+    val workTypes = enumValues<WorkType>().toList()
+    val experienceLevels = enumValues<ExperienceLevel>().toList()
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
         SearchBox(
-            value = searchText,
-            onValueChange = {searchText = it},
+            value = searchText.value,
+            onValueChange = { searchText.value = it },
             leadingIcon = Icons.Default.Search,
             leadingIconDesc = "Search",
-            onClick = {
-                    //TODO: Search for Job
-            },
             placeholder = "Enter job role (e.g. UX Designer)"
         )
+
         Text(
             text = "Date Posted",
             fontSize = 16.sp,
@@ -67,16 +68,18 @@ fun JobSearchFilter() {
         )
 
         TimeAgoDropdown(
-            onTimeValueSelected = { selectedTimeValue = it },
+            onTimeValueSelected = { selectedTimeValue.value = it },
             timeUnitOptions = timeUnitOptions,
-            onTimeUnitSelected = { selectedTimeUnit = it }
+            onTimeUnitSelected = { selectedTimeUnit.value = it }
         )
+
         Text(
             text = "Work Type",
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.onSecondary
         )
+
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -88,20 +91,16 @@ fun JobSearchFilter() {
                 FilterChip(
                     selected = isSelected,
                     onClick = {
-                        if (isSelected) {
-                            selectedWorkTypes.remove(workType)
-                        } else {
-                            selectedWorkTypes.add(workType)
-                        }
+                        if (isSelected) selectedWorkTypes.remove(workType)
+                        else selectedWorkTypes.add(workType)
                     },
                     label = {
                         Box(
-                            modifier = Modifier
-                                .padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = workType,
+                                text = workType.name,
                                 fontSize = 18.sp,
                                 textAlign = TextAlign.Center
                             )
@@ -116,12 +115,14 @@ fun JobSearchFilter() {
                 )
             }
         }
+
         Text(
             text = "Experience Level",
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.onSecondary
         )
+
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -133,20 +134,16 @@ fun JobSearchFilter() {
                 FilterChip(
                     selected = isSelected,
                     onClick = {
-                        if (isSelected) {
-                            selectedExperienceLevels.remove(experience)
-                        } else {
-                            selectedExperienceLevels.add(experience)
-                        }
+                        if (isSelected) selectedExperienceLevels.remove(experience)
+                        else selectedExperienceLevels.add(experience)
                     },
                     label = {
                         Box(
-                            modifier = Modifier
-                                .padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = experience,
+                                text = experience.name,
                                 fontSize = 18.sp,
                                 textAlign = TextAlign.Center
                             )
@@ -161,21 +158,26 @@ fun JobSearchFilter() {
                 )
             }
         }
+
         CheckBox(
             label = "Easy Apply",
-            checked = isEasyApplyEnabled,
-            onCheckedChange = { isEasyApplyEnabled = it })
+            checked = isEasyApplyEnabled.value,
+            onCheckedChange = { isEasyApplyEnabled.value = it }
+        )
         CheckBox(
             label = "Is Verified",
-            checked = isVerificationEnabled,
-            onCheckedChange = { isVerificationEnabled = it })
+            checked = isVerificationEnabled.value,
+            onCheckedChange = { isVerificationEnabled.value = it }
+        )
         CheckBox(
             label = "In Your Network",
-            checked = isInYourNetworkEnabled,
-            onCheckedChange = { isInYourNetworkEnabled = it })
+            checked = isInYourNetworkEnabled.value,
+            onCheckedChange = { isInYourNetworkEnabled.value = it }
+        )
         CheckBox(
             label = "No. of Applicants",
-            checked = isNoOfApplicantsEnabled,
-            onCheckedChange = { isNoOfApplicantsEnabled = it })
+            checked = isNoOfApplicantsEnabled.value,
+            onCheckedChange = { isNoOfApplicantsEnabled.value = it }
+        )
     }
 }

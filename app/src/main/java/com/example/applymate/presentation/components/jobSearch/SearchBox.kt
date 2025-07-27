@@ -1,5 +1,6 @@
 package com.example.applymate.presentation.components.jobSearch
 
+import android.R.attr.onClick
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,7 +24,6 @@ fun SearchBox(
     onValueChange: (String) -> Unit,
     leadingIcon: ImageVector,
     leadingIconDesc: String,
-    onClick: () -> Unit,
     placeholder: String
 ) {
     OutlinedTextField(
@@ -31,18 +31,12 @@ fun SearchBox(
         onValueChange = onValueChange,
         modifier = Modifier.fillMaxWidth(),
         leadingIcon = {
-            IconButton(
-                onClick = {
-                    onClick()
-                },
-            ) {
-                Icon(
-                    imageVector = leadingIcon,
-                    contentDescription = leadingIconDesc,
-                    modifier = Modifier.size(30.dp),
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            }
+            Icon(
+                imageVector = leadingIcon,
+                contentDescription = leadingIconDesc,
+                modifier = Modifier.size(30.dp),
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
+            )
         },
         label = {
             Text(

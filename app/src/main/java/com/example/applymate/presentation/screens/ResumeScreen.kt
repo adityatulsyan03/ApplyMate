@@ -10,23 +10,45 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.applymate.common.UiState
 import com.example.applymate.presentation.components.core.Header
 import com.example.applymate.presentation.components.naviagtions.AppScaffold
-import com.example.applymate.presentation.components.naviagtions.TopBar
 import com.example.applymate.presentation.components.resume.GenerateOptimizedResume
 import com.example.applymate.presentation.components.resume.ResumeReview
 import com.example.applymate.presentation.components.resume.ResumeSuggestion
 import com.example.applymate.presentation.components.resume.UploadResumeDocument
 import com.example.applymate.presentation.navigation.BottomNavigatorBar
-import com.example.applymate.ui.theme.ApplyMateTheme
+import com.example.applymate.presentation.viewModel.ActivityViewModel
+import com.example.applymate.presentation.viewModel.DocumentViewModel
+import com.example.applymate.presentation.viewModel.ResumeViewModel
 
 @Composable
-fun ResumeScreen(navController: NavController) {
+fun ResumeScreen(
+    navController: NavController,
+    documentViewModel: DocumentViewModel,
+    viewModel: ResumeViewModel,
+    activityViewModel: ActivityViewModel
+) {
+
+    val resumeState by documentViewModel.resumeState.collectAsState()
+    val jdState by documentViewModel.jdState.collectAsState()
+
+    val resumeText = when (resumeState) {
+        is UiState.Success -> (resumeState as UiState.Success).data.data?.documentText
+        else -> null
+    }
+
+    val jobDescription = when (jdState) {
+        is UiState.Success -> (jdState as UiState.Success).data.data?.documentText
+        else -> null
+    }
+
 
     AppScaffold(
         bottomBar = {
@@ -57,12 +79,20 @@ fun ResumeScreen(navController: NavController) {
                         )
                     }
                     item {
-                        UploadResumeDocument()
+                        UploadResumeDocument(
+                            viewModel = documentViewModel
+                        )
                     }
-                    item { ResumeReview() }
-                    item { ResumeSuggestion() }
+                    item { ResumeReview(resumeText = resumeText) }
+                    item { ResumeSuggestion(viewModel) }
                 }
-                GenerateOptimizedResume(modifier = Modifier.align(Alignment.BottomCenter))
+                GenerateOptimizedResume(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    viewModel = viewModel,
+                    resumeText = resumeText,
+                    jobDescription = jobDescription,
+                    activityViewModel = activityViewModel
+                )
             }
         }
 

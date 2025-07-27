@@ -1,7 +1,7 @@
 package com.example.applymate.data.repository
 
+import android.util.Log
 import com.example.applymate.common.UiState
-import com.example.applymate.data.model.Chat
 import com.example.applymate.data.model.CustomResponse
 import com.example.applymate.data.model.Referral
 import com.example.applymate.data.remote.ReferralApi
@@ -22,11 +22,14 @@ class ReferralRepository @Inject constructor(
 
             if(response.status == "OK"){
                 emit(UiState.Success(response,"Referral Message fetched"))
+                Log.d("Debug Logs","UiState Success")
             }else{
                 emit(UiState.Failed(response.message ?: "Failed to Fetched"))
+                Log.d("Debug Logs","UiState Failed")
             }
         } catch (e: Exception){
             emit(UiState.Failed(e.message ?: "An Unexpected Error Occurred"))
+            Log.d("Debug Logs","UiState Exception $e")
         }
 
     }

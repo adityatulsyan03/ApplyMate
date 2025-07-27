@@ -19,11 +19,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ReferralKeywords() {
-    var jobTitle by remember { mutableStateOf("") }
-    var company by remember { mutableStateOf("") }
-    var contactPerson by remember { mutableStateOf("") }
-    var additionNotes by remember { mutableStateOf("") }
+fun ReferralKeywords(
+    jobTitle: String,
+    onJobTitleChange: (String) -> Unit,
+    company: String,
+    onCompanyChange: (String) -> Unit,
+    contactPerson: String,
+    onContactPersonChange: (String) -> Unit,
+    additionalNotes: String,
+    onAdditionalNotesChange: (String) -> Unit
+) {
 
     Text(
         text = "Job Title",
@@ -34,9 +39,7 @@ fun ReferralKeywords() {
 
     OutlinedTextField(
         value = jobTitle,
-        onValueChange = {
-            jobTitle = it
-        },
+        onValueChange = onJobTitleChange,
         modifier = Modifier.fillMaxWidth(),
         label = {
             Text(
@@ -62,9 +65,7 @@ fun ReferralKeywords() {
 
     OutlinedTextField(
         value = company,
-        onValueChange = {
-            company = it
-        },
+        onValueChange = onCompanyChange,
         modifier = Modifier.fillMaxWidth(),
         label = {
             Text(
@@ -90,9 +91,7 @@ fun ReferralKeywords() {
 
     OutlinedTextField(
         value = contactPerson,
-        onValueChange = {
-            contactPerson = it
-        },
+        onValueChange = onContactPersonChange,
         modifier = Modifier.fillMaxWidth(),
         label = {
             Text(
@@ -117,10 +116,8 @@ fun ReferralKeywords() {
     )
 
     OutlinedTextField(
-        value = additionNotes,
-        onValueChange = {
-            additionNotes = it
-        },
+        value = additionalNotes,
+        onValueChange = onAdditionalNotesChange,
         modifier = Modifier.fillMaxWidth(),
         label = {
             Text(
