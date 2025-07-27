@@ -32,21 +32,21 @@ object AppModule {
                 level = HttpLoggingInterceptor.Level.BODY
             }
 
-        val authInterceptor = Interceptor { chain ->
-            val original = chain.request()
-            val token = tokenProvider.getToken()
-            val requestBuilder = original.newBuilder()
-            if (token != null) {
-                requestBuilder.addHeader("Authorization", "Bearer $token")
-            }
-            val request = requestBuilder.build()
-            chain.proceed(request)
-        }
+//        val authInterceptor = Interceptor { chain ->
+//            val original = chain.request()
+//            val token = tokenProvider.getToken()
+//            val requestBuilder = original.newBuilder()
+//            if (token != null) {
+//                requestBuilder.addHeader("Authorization", "Bearer $token")
+//            }
+//            val request = requestBuilder.build()
+//            chain.proceed(request)
+//        }
 
         // HTTP Client with bearer token
         return OkHttpClient
             .Builder()
-            .addInterceptor(authInterceptor)
+//            .addInterceptor(authInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
