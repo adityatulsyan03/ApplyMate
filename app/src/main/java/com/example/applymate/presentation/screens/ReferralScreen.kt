@@ -35,6 +35,7 @@ import com.example.applymate.presentation.components.referral.ReferralKeywords
 import com.example.applymate.presentation.navigation.BottomNavigatorBar
 import com.example.applymate.presentation.viewModel.ActivityViewModel
 import com.example.applymate.presentation.viewModel.ReferralViewModel
+import com.example.applymate.utils.MarkdownText
 
 @Composable
 fun ReferralScreen(
@@ -134,21 +135,8 @@ fun ReferralScreen(
                             val message = (referralState as UiState.Success<CustomResponse<String>>).data.data
                             if (!message.isNullOrBlank()) {
                                 item {
-                                    OutlinedTextField(
-                                        value = message,
-                                        onValueChange = {},
-                                        modifier = Modifier.fillMaxWidth(),
-                                        label = {
-                                            Text(
-                                                "Referral Text",
-                                                fontSize = 18.sp,
-                                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                                            )
-                                        },
-                                        colors = OutlinedTextFieldDefaults.colors(
-                                            focusedBorderColor = MaterialTheme.colorScheme.primaryContainer,
-                                            unfocusedBorderColor = MaterialTheme.colorScheme.primaryContainer
-                                        )
+                                    MarkdownText(
+                                        text = message
                                     )
                                 }
                             } else {

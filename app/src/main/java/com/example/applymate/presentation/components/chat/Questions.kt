@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -38,6 +39,8 @@ import com.example.applymate.data.model.CustomResponse
 import com.example.applymate.presentation.viewModel.ActivityViewModel
 import com.example.applymate.presentation.viewModel.ChatViewModel
 import com.example.applymate.ui.theme.LightBackground
+import com.example.applymate.utils.MarkdownText
+import androidx.compose.material3.MaterialTheme
 
 @Composable
 fun Questions(
@@ -94,11 +97,19 @@ fun Questions(
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.widthIn(max = 300.dp)
                     ) {
-                        Text(
-                            text = message,
-                            modifier = Modifier.padding(12.dp),
-                            color = Color.Black
-                        )
+                        if (isUser) {
+                            Text(
+                                text = message,
+                                modifier = Modifier.padding(12.dp),
+                                color = Color.Black
+                            )
+                        } else {
+                            Box(modifier = Modifier.padding(12.dp)) {
+                                MarkdownText(
+                                    text = message
+                                )
+                            }
+                        }
                     }
                 }
             }
