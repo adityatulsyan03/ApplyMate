@@ -19,7 +19,8 @@ fun GenerateOptimizedResume(
     viewModel: ResumeViewModel,
     resumeText: String?,
     jobDescription: String?,
-    activityViewModel: ActivityViewModel
+    activityViewModel: ActivityViewModel,
+    enable: Boolean
 ) {
 
     Button(
@@ -36,7 +37,7 @@ fun GenerateOptimizedResume(
             .background(MaterialTheme.colorScheme.background)
             .padding(16.dp)
             .fillMaxWidth(),
-        enabled = resumeText != null
+        enabled = enable
     ) {
         Text("Generate Optimized Resume")
     }

@@ -15,6 +15,9 @@ import com.example.applymate.common.iconInfoMapByIcon
 import com.example.applymate.data.model.CustomResponse
 import com.example.applymate.data.model.Suggestions
 import com.example.applymate.presentation.viewModel.ResumeViewModel
+import com.example.applymate.presentation.components.core.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Assignment
 
 @Composable
 fun ResumeSuggestion(viewModel: ResumeViewModel) {
@@ -45,27 +48,22 @@ fun ResumeSuggestion(viewModel: ResumeViewModel) {
             }
         }
         is UiState.Loading -> {
-            Text(
-                text = "Loading suggestions...",
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onPrimary
-            )
+            LoadingState("Analyzing resume and generating suggestions...")
         }
 
         is UiState.Failed -> {
             val message = (resumeState as UiState.Failed).message
-            Text(
-                text = "Error: $message",
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.error
+            ErrorState(
+                message = message,
+                onRetry = null
             )
         }
 
         is UiState.Idle -> {
-            Text(
-                text = "Upload documents to get the suggestions",
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onPrimary
+            IdleState(
+                icon = Icons.Default.Assignment,
+                title = "AI Resume Analysis",
+                subtitle = "Upload your resume and job description to get personalized improvement suggestions"
             )
         }
     }

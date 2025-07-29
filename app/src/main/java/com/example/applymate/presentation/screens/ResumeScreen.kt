@@ -27,6 +27,7 @@ import com.example.applymate.presentation.navigation.BottomNavigatorBar
 import com.example.applymate.presentation.viewModel.ActivityViewModel
 import com.example.applymate.presentation.viewModel.DocumentViewModel
 import com.example.applymate.presentation.viewModel.ResumeViewModel
+import com.example.applymate.presentation.components.core.TopLoadingBar
 
 @Composable
 fun ResumeScreen(
@@ -78,6 +79,18 @@ fun ResumeScreen(
                             second = "Get AI suggestions to improve your resume"
                         )
                     }
+                    
+                    // Show loading bars for document uploads
+                    if (resumeState is UiState.Loading) {
+                        item {
+                            TopLoadingBar("Processing resume...")
+                        }
+                    }
+                    if (jdState is UiState.Loading) {
+                        item {
+                            TopLoadingBar("Processing job description...")
+                        }
+                    }
                     item {
                         UploadResumeDocument(
                             viewModel = documentViewModel
@@ -88,6 +101,7 @@ fun ResumeScreen(
                 }
                 GenerateOptimizedResume(
                     modifier = Modifier.align(Alignment.BottomCenter),
+                    enable = resumeText != null && jdState !is UiState.Loading,
                     viewModel = viewModel,
                     resumeText = resumeText,
                     jobDescription = jobDescription,

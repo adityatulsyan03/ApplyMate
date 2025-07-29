@@ -32,6 +32,9 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import androidx.compose.runtime.getValue
 import com.example.applymate.common.UiState
 import com.example.applymate.presentation.viewModel.ActivityViewModel
+import com.example.applymate.presentation.components.core.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CloudUpload
 
 @Composable
 fun ChatScreen(
@@ -91,6 +94,22 @@ fun ChatScreen(
 
                 }
                 when (chatState) {
+                    is UiState.Loading -> {
+                        LoadingState("Processing document...")
+                    }
+                    is UiState.Failed -> {
+                        ErrorState(
+                            message = (chatState as UiState.Failed).message,
+                            onRetry = { /* Add retry logic if needed */ }
+                        )
+                    }
+                    is UiState.Idle -> {
+                        IdleState(
+                            icon = Icons.Default.CloudUpload,
+                            title = "Upload a Document",
+                            subtitle = "Upload a PDF or text document to start chatting with AI about its contents"
+                        )
+                    }
                     is UiState.Success -> {
                         val documentText = (chatState as UiState.Success).data.data?.documentText
                         if (!documentText.isNullOrBlank()) {

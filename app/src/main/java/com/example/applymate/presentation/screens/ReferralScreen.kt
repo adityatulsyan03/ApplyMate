@@ -36,6 +36,9 @@ import com.example.applymate.presentation.navigation.BottomNavigatorBar
 import com.example.applymate.presentation.viewModel.ActivityViewModel
 import com.example.applymate.presentation.viewModel.ReferralViewModel
 import com.example.applymate.utils.MarkdownText
+import com.example.applymate.presentation.components.core.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 
 @Composable
 fun ReferralScreen(
@@ -101,32 +104,26 @@ fun ReferralScreen(
                     when (referralState) {
                         is UiState.Loading -> {
                             item {
-                                Text(
-                                    text = "Generating referral message...",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    style = MaterialTheme.typography.bodyLarge
-                                )
+                                LoadingState("Generating referral message...")
                             }
                         }
 
                         is UiState.Failed -> {
                             val errorMessage = (referralState as UiState.Failed).message
                             item {
-                                Text(
-                                    text = "Error: $errorMessage",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    color = MaterialTheme.colorScheme.error,
-                                    style = MaterialTheme.typography.bodyLarge
+                                ErrorState(
+                                    message = errorMessage,
+                                    onRetry = { viewModel.generateReferralMessage(referralContent) }
                                 )
                             }
                         }
 
                         is UiState.Idle -> {
                             item {
-                                Text(
-                                    text = "Fill in the fields and click generate to create a referral message.",
-                                    modifier = Modifier.fillMaxWidth(),
-                                    style = MaterialTheme.typography.bodyLarge
+                                IdleState(
+                                    icon = Icons.Default.Edit,
+                                    title = "Generate Referral Message",
+                                    subtitle = "Fill in the job details above and click generate to create a personalized referral message"
                                 )
                             }
                         }

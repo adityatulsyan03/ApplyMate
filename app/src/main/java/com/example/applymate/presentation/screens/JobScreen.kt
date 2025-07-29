@@ -28,6 +28,8 @@ import com.example.applymate.presentation.navigation.BottomNavigatorBar
 import com.example.applymate.presentation.viewModel.ActivityViewModel
 import com.example.applymate.presentation.viewModel.JobSearchViewModel
 import com.example.applymate.utils.openLinkedInJobSearch
+import com.example.applymate.presentation.components.core.*
+import com.example.applymate.presentation.components.core.TopLoadingBar
 
 @Composable
 fun JobScreen(
@@ -51,7 +53,6 @@ fun JobScreen(
             ) {
                 when (jobSearchStatus) {
 
-                    is UiState.Loading,
                     is UiState.Idle,
                     is UiState.Success -> {
                         LazyColumn(
@@ -106,8 +107,53 @@ fun JobScreen(
                         }
                     }
 
+                    is UiState.Loading -> {
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(20.dp),
+                            contentPadding = PaddingValues(bottom = 80.dp)
+                        ) {
+                            item {
+                                Header(
+                                    first = "Smart Job Finder",
+                                    second = "Find relevant jobs on LinkedIn"
+                                )
+                            }
+                            item {
+                                TopLoadingBar("Searching for jobs on LinkedIn...")
+                            }
+                            item {
+                                JobSearchFilter(viewModel)
+                            }
+                        }
+                    }
+
                     is UiState.Failed -> {
-                        CenteredErrorText("Something went wrong. Please try again.")
+                        LazyColumn(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(20.dp),
+                            contentPadding = PaddingValues(bottom = 80.dp)
+                        ) {
+                            item {
+                                Header(
+                                    first = "Smart Job Finder",
+                                    second = "Find relevant jobs on LinkedIn"
+                                )
+                            }
+                            item {
+                                JobSearchFilter(viewModel)
+                            }
+                            item {
+                                ErrorState(
+                                    message = (jobSearchStatus as UiState.Failed).message,
+                                    onRetry = null
+                                )
+                            }
+                        }
                     }
                 }
             }
